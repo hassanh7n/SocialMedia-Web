@@ -9,7 +9,7 @@ import { getUsersfrinds } from "../../redux-toolkit/auth";
 const FriendListWidgetTwo = ({ userId }) => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
-  const {user, friends} = useSelector((store) => store.auth);
+  const { friends} = useSelector((store) => store.auth);
   
 
   console.log(friends);

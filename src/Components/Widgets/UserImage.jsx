@@ -5,7 +5,7 @@ console.log(image);
   return (
     <Box width={size} height={size}>
       <img
-      alt="image"
+      alt="user"
         src={image}
         style={{ objectFit: "cover", borderRadius: "50%" }}
         width={size}
