@@ -1,5 +1,5 @@
 import { Box, useMediaQuery } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../Navbar/index";
@@ -19,7 +19,7 @@ const ProfilePage = () => {
   }, []);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
-  const {currentUser, user} = useSelector((store) => store.auth);
+  const {currentUser} = useSelector((store) => store.auth);
   console.log(currentUser);
    // eslint-disable-line react-hooks/exhaustive-deps
   

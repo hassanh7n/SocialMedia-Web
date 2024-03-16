@@ -9,7 +9,7 @@ import UserImage from "./UserImage";
 import FlexBetween from "../widget/FlexBetweeen";
 import WidgetWrapper from "./WidgetWrapper";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import linkedinLogo from './download.png';
 import XLogo from './download (1).png';
@@ -18,7 +18,7 @@ import XLogo from './download (1).png';
 const UserWidget = ({picturePath, location, firstName, lastName, _id, occupation, viewedProfile , impressions}) => {
   const { palette } = useTheme();
   const navigate = useNavigate();
-  const { user} = useSelector((store) => store.auth);
+  // const { user} = useSelector((store) => store.auth);
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;

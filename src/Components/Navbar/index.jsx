@@ -36,7 +36,7 @@ const Index = () => {
   const isNonMobileScreenView = useMediaQuery("(min-width: 1000px)");
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
-  const background = theme.palette.background.default;
+  // const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
   const Name =  `${user.firstName} ${user.lastName}`;

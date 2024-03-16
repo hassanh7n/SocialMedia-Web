@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser, userImageUpload, handleChange, loginUser } from '../../redux-toolkit/auth';
 import Dropzone from 'react-dropzone';
 import FlexBetween from "../widget/FlexBetweeen";
-import { Palette } from '@mui/icons-material';
 
 
 
@@ -64,7 +63,7 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
-  const {user, dp, firstName, lastName, picture, email, password, location, occupation} = useSelector((store) => store.auth);
+  const {user, dp, firstName, lastName,  email, password, location, occupation} = useSelector((store) => store.auth);
   if(user){
     setTimeout(() => {
       navigate("/")

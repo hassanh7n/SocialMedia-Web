@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetweeen";
 import { addOrRemoveFreinds } from "../../redux-toolkit/auth";
-import FriendImage from "../Widgets/FriendImage";
+// import FriendImage from "../Widgets/FriendImage";
 import UserImage from "../Widgets/UserImage";
 
 const Friends = ({ friendId, name, subtitle, picture }) => {
