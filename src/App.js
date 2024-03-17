@@ -37,10 +37,9 @@ function App() {
               </ProtectedRoutes>}>
             </Route> */}
 
+            <Route path='login' element={<LoginPage />} /> 
             <Route path='/:id' element={<ProfilePage />} />
-            <Route path='/login' element={<LoginPage />} /> 
-             
-            </Routes>
+          </Routes>
 
         </ThemeProvider>
         <ToastContainer position='top-center' />
