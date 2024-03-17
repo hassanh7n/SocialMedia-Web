@@ -171,7 +171,7 @@ const Index = () => {
             gap="3rem"
           >
             <IconButton
-              onClick={() => dispatch(logoutUser())}
+              onClick={() => dispatch(setMode())}
               sx={{ fontSize: "25px" }}
             >
               {theme.palette.mode === "dark" ? (
@@ -204,7 +204,7 @@ const Index = () => {
                 <MenuItem value={Name}>
                   <Typography>{Name}</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => dispatch(setMode())}>
+                <MenuItem onClick={() => dispatch(logoutUser())}>
                   Log Out
                 </MenuItem>
               </Select>

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {toast} from 'react-toastify';
 
 
-import {addUserToLocalStorage, addTokenToLocalStorage,removeUserFromLocalStorage, removeTokenFromLocalStorage,getUserFromLocalStorage, getTokenFromLocalStorage} from '../utils/localStorage';
+import {addUserToLocalStorage, addModeToLocalStorage, getModeFromLocalStorage,addTokenToLocalStorage,removeUserFromLocalStorage, removeTokenFromLocalStorage,getUserFromLocalStorage, getTokenFromLocalStorage} from '../utils/localStorage';
 import customFetch from "../utils/axios";
 
 
@@ -11,7 +11,7 @@ const initialState = {
     user : getUserFromLocalStorage() || null,
     token : [],
     dp : undefined,
-    mode : "light",
+    mode : getModeFromLocalStorage() || "light",
     postsPicture : "",
     posts : [],
     friends : [],
@@ -240,6 +240,7 @@ const authSlice = createSlice({
         },
         setMode: (state) => {
             state.mode = state.mode === "light" ? "dark" : "light";
+            addModeToLocalStorage(state.mode);
           }
     },
 

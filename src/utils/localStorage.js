@@ -5,9 +5,9 @@ export const addTokenToLocalStorage = (token) => {
     localStorage.setItem('token', JSON.stringify(token));
 }
 
-export const addCartToLocalStorage = (cart) => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
+// export const addCartToLocalStorage = (mode) => {
+//     localStorage.setItem('cart', JSON.stringify(cart));
+// }
 
 
 export const removeTokenFromLocalStorage = () => {
@@ -26,6 +26,24 @@ export const getUserFromLocalStorage = () => {
 
 export const getTokenFromLocalStorage = () => {
     const result = localStorage.getItem('token');
+    const user = result ? JSON.parse(result) : null;
+    return user
+}
+
+
+
+
+
+
+
+export const addModeToLocalStorage = (mode) => {
+    localStorage.setItem('mode', JSON.stringify(mode));
+}
+
+
+
+export const getModeFromLocalStorage = () => {
+    const result = localStorage.getItem('mode');
     const user = result ? JSON.parse(result) : null;
     return user
 }
