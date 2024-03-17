@@ -13,7 +13,7 @@ const FriendsTwo = ({ friendId, name, subtitle, picture }) => {
   const navigate = useNavigate();
   const { user, currentUser } = useSelector((store) => store.auth);
   const {_id} = user;
-  const {friends} = useSelector((store) => store.auth); 
+  const {friends, isLoading} = useSelector((store) => store.auth); 
 
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
@@ -62,13 +62,14 @@ const FriendsTwo = ({ friendId, name, subtitle, picture }) => {
       </FlexBetween>
       {_id !== friendId && show &&  (
         <IconButton
+        disabled={isLoading}
         onClick={() => patchFriend()}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
         {isFriend ? (
-          <PersonRemoveOutlined sx={{ color: primaryDark }} />
+          <PersonRemoveOutlined disabled={isLoading}  sx={{ color: primaryDark }} />
         ) : (
-          <PersonAddOutlined sx={{ color: primaryDark }} />
+          <PersonAddOutlined disabled={isLoading}  sx={{ color: primaryDark }} />
         )}
       </IconButton>
       )}

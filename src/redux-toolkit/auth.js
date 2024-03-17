@@ -345,7 +345,7 @@ const authSlice = createSlice({
             state.isLoading = true
         })
         .addCase(addOrRemoveFreinds.fulfilled, (state, {payload}) => {
-            state.isLoading = true;
+            state.isLoading = false;
             const {formattedFriends} = payload;
             state.friends = formattedFriends;
         })
