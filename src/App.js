@@ -25,21 +25,22 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <Routes>
-            <Route path='/' element={ 
-              <ProtectedRoutes>
-                <HomePage/>
-              </ProtectedRoutes>}>
-            </Route>
-
-            {/* <Route  path='/:id' element={
-              <ProtectedRoutes>
-                <ProfilePage />
-              </ProtectedRoutes>}>
-            </Route> */}
-
-            <Route path='login' element={<LoginPage />} /> 
-            <Route path='/:id' element={<ProfilePage />} />
-          </Routes>
+            <Route path='/' element={
+        <ProtectedRoutes>
+        <HomePage/>
+      </ProtectedRoutes>
+      }>
+          
+        </Route>
+          <Route path='/:id' element={
+          <ProtectedRoutes>
+            <ProfilePage />
+          </ProtectedRoutes>
+          
+          }/>
+              <Route path='/login' element={<LoginPage />} /> 
+             
+            </Routes>
 
         </ThemeProvider>
         <ToastContainer position='top-center' />
