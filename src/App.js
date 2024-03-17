@@ -32,13 +32,13 @@ function App() {
       }>
           
         </Route>
-          <Route path='/:id' element={
+          {/* <Route path='/:id' element={
           <ProtectedRoutes>
             <ProfilePage />
           </ProtectedRoutes>
-          
-          }/>
+          }/> */}
               <Route path='/login' element={<LoginPage />} /> 
+              <Route path='/:id' element={<ProfilePage />} /> 
              
             </Routes>
 
