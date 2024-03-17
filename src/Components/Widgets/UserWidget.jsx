@@ -32,7 +32,7 @@ const UserWidget = ({picturePath, location, firstName, lastName, _id, occupation
         gap="0.5rem"
         pb="1.1rem"
         onClick={() => {
-          <Navigate to={`/${_id}`} />
+          <Navigate to={`${_id}`} />
         }}
       >
         <FlexBetween gap="1rem">
