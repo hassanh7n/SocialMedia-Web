@@ -26,16 +26,22 @@ function App() {
           <CssBaseline />
             <Routes>
               <Route path='/' element={
-        <ProtectedRoutes>
-        <HomePage/>
-      </ProtectedRoutes>
-      }>
+                  <ProtectedRoutes>
+                      <HomePage/>
+                  </ProtectedRoutes>
+              }>
           
               </Route>
          
-              <Route path='login' element={<LoginPage />} /> 
-              <Route path='/:id' element={<ProfilePage />} /> 
-              
+              <Route path='/:id' element={
+                <ProtectedRoutes>
+                      <ProfilePage/>
+                  </ProtectedRoutes>
+              }>
+          
+                <Route path='login' element={<LoginPage />} /> 
+              </Route>
+
               {/* <Route path='/:id' element={
           <ProtectedRoutes>
             <ProfilePage />
