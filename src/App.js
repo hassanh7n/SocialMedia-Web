@@ -25,21 +25,22 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <Routes>
-            <Route path='/' element={
+              <Route path='/' element={
         <ProtectedRoutes>
         <HomePage/>
       </ProtectedRoutes>
       }>
           
-        </Route>
-          {/* <Route path='/:id' element={
+              </Route>
+         
+              <Route path='login' element={<LoginPage />} /> 
+              <Route path='/:id' element={<ProfilePage />} /> 
+              
+              {/* <Route path='/:id' element={
           <ProtectedRoutes>
             <ProfilePage />
           </ProtectedRoutes>
           }/> */}
-              <Route path='/login' element={<LoginPage />} /> 
-              <Route path='/:id' element={<ProfilePage />} /> 
-             
             </Routes>
 
         </ThemeProvider>
