@@ -12,7 +12,7 @@ import ProfilePage from './Components/ProfilePage';
 import ProtectedRoutes from './pages/ProtectedRoutes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import SharedLayout from './Components/widget/SharedLayout';
 
 function App() {
   const {mode} = useSelector((store) => store.auth);
@@ -25,28 +25,16 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <Routes>
-              <Route path='/' element={
-                  <ProtectedRoutes>
-                      <HomePage/>
-                  </ProtectedRoutes>
+            <Route path='/' element={
+              <ProtectedRoutes>
+                <SharedLayout/>
+              </ProtectedRoutes>
               }>
-          
-              </Route>
-         
-              <Route path='/:id' element={
-                <ProtectedRoutes>
-                      <ProfilePage/>
-                  </ProtectedRoutes>
-              }>
-          
-                <Route path='login' element={<LoginPage />} /> 
+              <Route index element={<HomePage />} />
+              <Route path='/:id' element={<ProfilePage />} />
               </Route>
 
-              {/* <Route path='/:id' element={
-          <ProtectedRoutes>
-            <ProfilePage />
-          </ProtectedRoutes>
-          }/> */}
+               <Route path='/login' element={<LoginPage />} />
             </Routes>
 
         </ThemeProvider>
