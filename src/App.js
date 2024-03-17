@@ -31,10 +31,10 @@ function App() {
               </ProtectedRoutes>
               }>
               <Route index element={<HomePage />} />
-              <Route path='/:id' element={<ProfilePage />} />
               </Route>
 
                <Route path='/login' element={<LoginPage />} />
+               <Route path='/:id' element={<ProfilePage />} />
             </Routes>
 
         </ThemeProvider>
