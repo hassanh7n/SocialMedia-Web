@@ -25,17 +25,16 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <Routes>
-            <Route path='/:id' element={<ProfilePage />} />
             <Route path='/' element={
               <ProtectedRoutes>
                 <SharedLayout/>
               </ProtectedRoutes>
               }>
               <Route index element={<HomePage />} />
+               <Route path='/:id' element={<ProfilePage/>} />
               </Route>
 
                <Route path='/login' element={<LoginPage />} />
-               
             </Routes>
 
         </ThemeProvider>
