@@ -10,7 +10,7 @@ import FlexBetween from "../widget/FlexBetweeen";
 import WidgetWrapper from "./WidgetWrapper";
 import { useSelector } from "react-redux";
 // import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import linkedinLogo from './download.png';
 import XLogo from './download (1).png';
 
@@ -31,7 +31,9 @@ const UserWidget = ({picturePath, location, firstName, lastName, _id, occupation
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
-        onClick={() => navigate(`/${_id}`)}
+        onClick={() => {
+          <Navigate to={`/${_id}`} />
+        }}
       >
         <FlexBetween gap="1rem">
           <UserImage image={picturePath} />
