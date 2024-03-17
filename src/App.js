@@ -25,6 +25,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <Routes>
+            <Route path='/:id' element={<ProfilePage />} />
             <Route path='/' element={
               <ProtectedRoutes>
                 <SharedLayout/>
@@ -34,7 +35,7 @@ function App() {
               </Route>
 
                <Route path='/login' element={<LoginPage />} />
-               <Route path='/:id' element={<ProfilePage />} />
+               
             </Routes>
 
         </ThemeProvider>
