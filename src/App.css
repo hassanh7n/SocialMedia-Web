@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+label{
+  color: #858585;
+}
+#file-input::file-selector-button{
+  /* margin-top : 2.1rem; */
+  font-weight: bold;
+  color: rgba(31, 111, 230, 0.705);
+  padding: 0.5em;
+  border: thin solid rgb(97, 141, 223);
+  border-radius: 3px;
+  background: transparent;
+}

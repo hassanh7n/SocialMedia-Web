@@ -102,8 +102,33 @@ const MyPostWidget = () => {
           borderRadius="5px"
           mt="1rem"
           p="1rem"
+
         >
-          <Dropzone
+          
+          
+            <>
+                  
+                    <input 
+                    className='file-input' 
+                    onChange={handleImage} 
+                    type="file" 
+                    name="img" 
+                    id="file-input" 
+                    placeholder='choose file' 
+                    multiple={false}
+                    // onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
+                    />
+            </>
+                  
+          {image && (
+                  <IconButton
+                    onClick={() => setImage(null)}
+                    sx={{ width: "15%" }}
+                  >
+                    <DeleteOutlined />
+                  </IconButton>
+                )}
+          {/* <Dropzone
             acceptedFiles=".jpg,.jpeg,.png"
             multiple={false}
             onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
@@ -117,7 +142,7 @@ const MyPostWidget = () => {
                   width="100%"
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <input {...getInputProps()} 
+                  <input type="file" {...getInputProps()} 
                   onChange={handleImage} 
                   />
                   {!file ? (
@@ -139,7 +164,7 @@ const MyPostWidget = () => {
                 )}
               </FlexBetween>
             )}
-          </Dropzone>
+          </Dropzone> */}
         </Box>
       )}
 
