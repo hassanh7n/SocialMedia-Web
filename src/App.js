@@ -26,7 +26,7 @@ function App() {
           <CssBaseline />
             <Routes>
             <Route path='/' element={
-              <ProtectedRoutes>
+              <ProtectedRoutes>                                                 
                 <SharedLayout/>
               </ProtectedRoutes>
               }>
