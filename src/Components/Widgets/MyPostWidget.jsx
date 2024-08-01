@@ -66,6 +66,7 @@ const MyPostWidget = () => {
     formData.append('file', e.target.files[0])
     console.log(formData);
     dispatch(postImageUpload(formData))
+    
   }
 
   const handlePost = () => {
@@ -77,6 +78,8 @@ const MyPostWidget = () => {
     pictureUrl : postsPicture,
     description : post
   }))
+  setIsImage(!isImage)
+
   setFile("");
   setPost("");
 }

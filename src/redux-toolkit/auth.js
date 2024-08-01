@@ -311,7 +311,7 @@ const authSlice = createSlice({
             const {posts} = payload;
             state.posts = posts;
             state.postsPicture = "";
-            toast.success(`POst uploaded successfuly`);
+            toast.success(`Post uploaded successfuly`);
         })
         .addCase(createPost.rejected, (state, {payload}) => {
             state.isLoading = false;
