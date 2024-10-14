@@ -23,7 +23,6 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const isFriend = friends.find((friend) => friend._id === friendId);
   const show = currentUser._id === user._id ? true : false;
-  console.log(show);
 
   const patchFriend = async () => {
     dispatch(addOrRemoveFreinds({

@@ -60,18 +60,18 @@ const MyPostWidget = () => {
   // };
   const handleImage = (e) => {
     // const files = Array.from(e.target.files);
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         setFile(e.target.files[0])
     const formData = new FormData();
     formData.append('file', e.target.files[0])
-    console.log(formData);
+    // console.log(formData);
     dispatch(postImageUpload(formData))
     
   }
 
   const handlePost = () => {
 
-  console.log(post, postsPicture);
+  // console.log(post, postsPicture);
 
   dispatch(createPost({
     userId : _id,

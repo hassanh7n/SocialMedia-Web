@@ -82,13 +82,13 @@ const Form = () => {
         setFile(e.target.files[0])
     const formData = new FormData();
     formData.append('file', e.target.files[0])
-    console.log(formData);
+    // console.log(formData);
     dispatch(userImageUpload(formData))
   }
   
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submit");
+    // console.log("form submit");
     // values.preventDefault();
     if (isRegister) await dispatch(registerUser({
       firstName : firstName,
@@ -177,19 +177,26 @@ const Form = () => {
                         p="1rem"
                         sx={{ "&:hover": { cursor: "pointer" } }}
                       >
-                        <input
-                        {...getInputProps()} 
-                        onChange={handleImage} 
-                        />
+                       <input 
+                    className='file-input' 
+                    onChange={handleImage} 
+                    type="file" 
+                    name="img" 
+                    id="file-input" 
+                    placeholder='choose file' 
+                    multiple={false}
+                    // onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
+                    />
 
                         {!file ? (
-                          <p>Add Picture Here</p>
+                          <p></p>
                         ) : (
                           <FlexBetween>
-                            <Typography>{file.name}</Typography>
-                            <EditOutlinedIcon />
+                            <Typography></Typography>
+                            {/* <EditOutlinedIcon /> */}
                           </FlexBetween>
                         )}
+                        
                       </Box>
                     )}
                 </Dropzone>

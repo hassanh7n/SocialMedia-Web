@@ -12,7 +12,7 @@ const FriendListWidget = ({ userId }) => {
   const { friends} = useSelector((store) => store.auth);
   
 
-  console.log(friends);
+  // console.log(friends);
 
   useEffect(() => {
     dispatch(getUsersfrinds(userId))

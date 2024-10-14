@@ -33,7 +33,7 @@ export const userImageUpload = createAsyncThunk(
     async(user, thunkAPI) => {
         try {
             const resp = await customFetch.post('/post/uploadImage', user);
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -47,7 +47,7 @@ export const registerUser = createAsyncThunk(
     async(user, thunkAPI) => {
         try {
             const resp = await customFetch.post('/auth/register', user);
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data
 
         } catch (error) {
@@ -64,7 +64,7 @@ export const loginUser = createAsyncThunk(
     async(user, thunkAPI) => {
         try {
             const resp = await customFetch.post('/auth/login', user);
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data
 
         } catch (error) {
@@ -80,7 +80,7 @@ export const postImageUpload = createAsyncThunk(
     async(user, thunkAPI) => {
         try {
             const resp = await customFetch.post('/post/uploadImage', user);
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -98,7 +98,7 @@ export const createPost = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             });
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -118,7 +118,7 @@ export const getAllPosts = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             })
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -136,7 +136,7 @@ export const getUserPosts = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             })
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -156,7 +156,7 @@ export const addOrRemoveFreinds = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             });
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -175,7 +175,7 @@ export const getUsersfrinds = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             });
-            console.log( resp.data);
+            // console.log( resp.data);
             return resp.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -193,7 +193,7 @@ export const likeOrUnlikePost = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             });
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -212,7 +212,7 @@ export const getUser = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             });
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data;
 
         } catch (error) {
@@ -249,7 +249,7 @@ const authSlice = createSlice({
         .addCase(userImageUpload.fulfilled, (state, {payload}) => {
             const {src} = payload.image;
             state.dp = src;
-            console.log(state.dp);
+            // console.log(state.dp);
         })
         .addCase(userImageUpload.rejected, (state, {payload}) => {
             state.isLoading = false
@@ -287,7 +287,7 @@ const authSlice = createSlice({
         })
         .addCase(loginUser.rejected, (state, {payload}) => {
             state.isLoading = false
-            console.log(payload);
+            // console.log(payload);
             toast.error(payload)
         })
         .addCase(postImageUpload.pending, (state) => {
@@ -297,7 +297,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             const {src} = payload.image;
             state.postsPicture = src;
-            console.log(state.postsPicture);
+            // console.log(state.postsPicture);
         })
         .addCase(postImageUpload.rejected, (state, {payload}) => {
             state.isLoading = false;

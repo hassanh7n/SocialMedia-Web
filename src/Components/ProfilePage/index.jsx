@@ -13,14 +13,14 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   // const [user, setUser] = useState(null);
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   useEffect(() => {
     dispatch(getUser(id));
   }, []);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const {currentUser} = useSelector((store) => store.auth);
-  console.log(currentUser);
+  // console.log(currentUser);
    // eslint-disable-line react-hooks/exhaustive-deps
   
   if (!currentUser) return null;
