@@ -22,7 +22,7 @@ import {
 } from '@mui/icons-material'
 import {  useDispatch, useSelector  } from 'react-redux';
 import {logoutUser, setMode} from '../../redux-toolkit/auth'
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import FlexBetweeen from '../widget/FlexBetweeen';
 
 
@@ -99,8 +99,14 @@ const Index = () => {
             (<LightMode sx={{fontSize : "25px", color : dark}} />)
             }
           </IconButton>
+          
+          <a href="/messenger">
+          <Message  className='pointer' sx={{fontSize : "25px"}}>
+          </Message>
+          </a>
+  
+          
 
-          <Message sx={{fontSize : "25px"}} />
           <Notifications sx={{fontSize : "25px"}} />
           <Help sx={{fontSize : "25px"}} />
           <FormControl variant='standard' value={Name}>
@@ -180,7 +186,11 @@ const Index = () => {
                 <LightMode sx={{ color: dark, fontSize: "25px" }} />
               )}
             </IconButton>
-            <Message sx={{ fontSize: "25px" }} />
+            <IconButton>
+            <Link to="/messenger">
+            <Message className='pointer' sx={{ fontSize: "25px" }} />
+            </Link>
+            </IconButton>
             <Notifications sx={{ fontSize: "25px" }} />
             <Help sx={{ fontSize: "25px" }} />
             <FormControl variant="standard" value={Name}>

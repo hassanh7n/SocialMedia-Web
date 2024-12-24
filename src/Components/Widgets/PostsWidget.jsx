@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { setPosts } from "state";
 import PostWidget from "./PostWidget";
-import { getAllPosts, getUserPosts } from "../../redux-toolkit/auth";
+import { getAllPosts, getUserPosts, getAllComments } from "../../redux-toolkit/auth";
+// import { likeOrUnlikePost, , postComments} from "../../redux-toolkit/auth";
+
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
@@ -13,6 +15,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   useEffect(() => {
     if (isProfile) {
       dispatch(getUserPosts(userId));
+     
     } else {
       dispatch(getAllPosts());
     }
@@ -30,8 +33,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           location,
           pictureUrl,
           userPictureUrl,
-          likes,
           comments,
+          likes,
         }) => (
           <PostWidget
             key={_id}
@@ -43,7 +46,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             picturePath={pictureUrl}
             userPicturePath={userPictureUrl}
             likes={likes}
-            comments={comments}
+            comments = {comments}
           />
         )
       )}

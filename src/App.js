@@ -11,12 +11,13 @@ import LoginPage from './Components/LoginPage';
 import ProfilePage from './Components/ProfilePage';
 import ProtectedRoutes from './pages/ProtectedRoutes';
 import { ToastContainer } from 'react-toastify';
+import Messenger from './Components/messenger/Massenger';
 import 'react-toastify/dist/ReactToastify.css';
 import SharedLayout from './Components/widget/SharedLayout';
 
 function App() {
   const {mode} = useSelector((store) => store.auth);
-  console.log(mode);
+  // console.log(mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)),[mode]);
 
   return (
@@ -32,7 +33,9 @@ function App() {
               }>
               <Route index element={<HomePage />} />
                <Route path='/:id' element={<ProfilePage/>} />
+                <Route path='/messenger' element={<Messenger/>} />
               </Route>
+
 
                <Route path='/login' element={<LoginPage />} />
             </Routes>

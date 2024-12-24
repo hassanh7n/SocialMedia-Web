@@ -4,10 +4,11 @@ import {toast} from 'react-toastify';
 
 import {addUserToLocalStorage, addModeToLocalStorage, getModeFromLocalStorage,addTokenToLocalStorage,removeUserFromLocalStorage, removeTokenFromLocalStorage,getUserFromLocalStorage, getTokenFromLocalStorage} from '../utils/localStorage';
 import customFetch from "../utils/axios";
-
-
+import { useDispatch, useSelector } from "react-redux";
+const disptach = useDispatch;
 const initialState = {
     isLoading : false,
+    upload : false,
     user : getUserFromLocalStorage() || null,
     token : [],
     dp : undefined,
@@ -24,6 +25,7 @@ const initialState = {
     picture : "",
     userFriends :[],
     currentUser : [],
+    commentss : []
 };
 
 
@@ -222,6 +224,44 @@ export const getUser = createAsyncThunk(
 )
 
 
+
+//get all comments of specific post
+export const getAllComments = createAsyncThunk(
+    'posts/allComments',
+    async(id, thunkAPI) => {
+        try {
+            const resp = await customFetch.post(`/comments/getallcomments`, id, {
+                headers : {
+                    authorization : `Bearer ${getTokenFromLocalStorage()}`,
+                },
+            })
+            // console.log(resp.data);
+            return resp.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg)
+        }
+    }
+);
+
+// post a comment
+export const postComments = createAsyncThunk(
+    'posts/ccreateComment',
+    async(comment, thunkAPI) => {
+        try {
+            const resp = await customFetch.post(`/comments`, comment, {
+                headers : {
+                    authorization : `Bearer ${getTokenFromLocalStorage()}`,
+                },
+            })
+            console.log(resp.data);
+            return resp.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg)
+        }
+    }
+);
+
+
 const authSlice = createSlice({
     name : "auth",
     initialState,
@@ -322,6 +362,8 @@ const authSlice = createSlice({
         })
         .addCase(getAllPosts.fulfilled, (state, {payload}) => {
             state.isLoading = false;
+            console.log(payload);
+            
             const {posts} = payload;
             state.posts = posts;
         })
@@ -379,6 +421,39 @@ const authSlice = createSlice({
         .addCase(getUser.rejected, (state, {payload}) => {
             state.isLoading = false;
             toast.error(payload);
+        })
+        .addCase(getAllComments.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(getAllComments.fulfilled, (state, {payload}) => {
+            state.isLoading = false;
+            const {comments} = payload;
+            state.comments = comments
+            // console.log(comments);
+                        
+            // const {user} = payload;
+        })
+        .addCase(getAllComments.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload);
+        })
+        .addCase(postComments.pending, (state) => {
+            state.isLoading = true;
+            state.upload = false;
+        })
+        .addCase(postComments.fulfilled, (state, {payload}) => {
+            state.isLoading = false;
+            const {comment} = payload;
+            state.commentss = comment;
+            state.upload = true;
+            toast.success("comment uploaded")
+            getAllPosts()
+
+        })
+        .addCase(postComments.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload);
+            state.upload = false
         })
     }
 });

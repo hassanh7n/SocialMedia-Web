@@ -6,6 +6,10 @@
   height: 40vmin;
   pointer-events: none;
 }
+a{
+  color: inherit;
+  margin-top: 10px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -26,6 +30,9 @@
 
 .App-link {
   color: #61dafb;
+}
+.pointer{
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
