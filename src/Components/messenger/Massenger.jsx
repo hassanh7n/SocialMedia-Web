@@ -1,32 +1,48 @@
-import React from 'react'
-import './Messenger.css'
-import {Box, useMediaQuery} from "@mui/material";
-import Navbar from '../Navbar';
-import UserWidget from '../Widgets/UserWidget';
-import MyPostWidget from '../Widgets/MyPostWidget';
-import PostsWidget from '../Widgets/PostsWidget';
-import { useSelector } from 'react-redux';
-import FriendListWidget from '../Widgets/FriendListWidget';
-import AdvertWidget from '../Widgets/AdvertWidget';
+import { useSelector } from "react-redux";
+import "./Messenger.css";
+// import Topbar from "../../components/topbar/Topbar";
+// import Conversation from "../../components/conversations/Conversation";
+// import Message from "../../components/message/Message";
+// import ChatOnline from "../../components/chatOnline/ChatOnline";
+import { useContext, useEffect, useRef, useState } from "react";
 
-const Massenger = () => {
-  const {user} = useSelector((store) => store.auth);
-  const {_id} = user;
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+
+
+export default function Messenger() {
+  const [conversations, setConversations] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const socket = useRef();
+  const {user, users} = useSelector((store) => store.auth);
+  const scrollRef = useRef();
+
+
+ 
+
+
   return (
-    <Box>
-      <Navbar />
-      <Box
-        width="100%"
-        padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
-        gap="0.5rem"
-        justifyContent="space-between"
-      >
-        {/* user section  */}
-      </Box>
-    </Box>
-  )
+    <>
+      <div className="messenger">
+        <div className="chatMenu">
+          <div className="chatMenuWrapper">
+            <input placeholder="Search for friends" className="chatMenuInput" />
+            
+          </div>
+        </div>
+        <div className="chatBox">
+          <div className="chatBoxWrapper">
+            
+          </div>
+        </div>
+        <div className="chatOnline">
+          <div className="chatOnlineWrapper">
+            
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
-
-export default Massenger

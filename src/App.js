@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify';
 import Messenger from './Components/messenger/Massenger';
 import 'react-toastify/dist/ReactToastify.css';
 import SharedLayout from './Components/widget/SharedLayout';
+import Chat from './Components/messenger/Chat';
 
 function App() {
   const {mode} = useSelector((store) => store.auth);
@@ -34,6 +35,8 @@ function App() {
               <Route index element={<HomePage />} />
                <Route path='/:id' element={<ProfilePage/>} />
                 <Route path='/messenger' element={<Messenger/>} />
+                <Route path='/messenger/:id' element={<Chat/>} />
+
               </Route>
 
 

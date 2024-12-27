@@ -25,7 +25,8 @@ const initialState = {
     picture : "",
     userFriends :[],
     currentUser : [],
-    commentss : []
+    commentss : [],
+    users : []
 };
 
 
@@ -262,6 +263,25 @@ export const postComments = createAsyncThunk(
 );
 
 
+
+
+// get all users
+export const getAllUsers = createAsyncThunk(
+'users/getAllUsers',
+async(thunkAPI) => {
+    try {
+        const resp = await customFetch.get('/message', {
+            headers : {
+                authorization : `Bearer ${getTokenFromLocalStorage()}`,
+            },
+        })
+        return resp.data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data.msg)
+    }
+}
+)
+
 const authSlice = createSlice({
     name : "auth",
     initialState,
@@ -454,6 +474,16 @@ const authSlice = createSlice({
             state.isLoading = false;
             toast.error(payload);
             state.upload = false
+        })
+        .addCase(getAllUsers.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(getAllUsers.fulfilled, (state, {payload}) => {
+            state.isLoading = false;
+            const {users} = payload;
+            console.log(users);
+            
+            state.users = users;
         })
     }
 });
