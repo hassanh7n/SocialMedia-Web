@@ -1,0 +1,23 @@
+.chat-main-div{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.me{
+    /* align-items: right; */
+    text-align: right;
+    margin: 1rem 0rem;
+}
+.they{
+    text-align: left;
+    margin: 1rem 0rem;
+    border-radius: 20px;
+}
+i{
+    background-color: lightgray;
+    padding: 0.7rem 1rem;
+    color: black;
+    margin: 1rem 0rem;
+    border-radius: 15px;
+
+}

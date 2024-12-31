@@ -26,7 +26,10 @@ const initialState = {
     userFriends :[],
     currentUser : [],
     commentss : [],
-    users : []
+    users : [],
+    conversations : null,
+    getUser : [],
+    conversation : null,
 };
 
 
@@ -215,7 +218,7 @@ export const getUser = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             });
-            // console.log(resp.data);
+            console.log(resp.data);
             return resp.data;
 
         } catch (error) {
@@ -280,6 +283,71 @@ async(thunkAPI) => {
         return thunkAPI.rejectWithValue(error.response.data.msg)
     }
 }
+)
+
+// get all conversations
+export const getAllConversations = createAsyncThunk(
+    'conversations/all',
+    async(id, thunkAPI) => {
+        try {
+            const resp = await customFetch.get(`/conversation/${id}`, {
+                headers : {
+                    authorization : `Bearer ${getTokenFromLocalStorage()}`,
+                },
+            })
+            // console.log(resp.data);
+            
+            return resp.data;
+        } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data.msg)
+            
+        }
+    }
+)
+
+
+
+
+
+
+// get conv of user
+export const getConvOfUser = createAsyncThunk(
+    'conv/getConvOfUser',
+    async(id, thunkAPI) => {
+        try {
+            const resp = await customFetch.post(`/message/conversation`, id, {
+                headers : {
+                    authorization : `Bearer ${getTokenFromLocalStorage()}`,
+                },
+            });
+            console.log(resp.data);
+            return resp.data;
+
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg)
+        }
+    }
+)
+
+
+
+// get specific user
+export const getConvUser = createAsyncThunk(
+    'conv/getConvUser',
+    async(id, thunkAPI) => {
+        try {
+            const resp = await customFetch.get(`/user/${id}`, {
+                headers : {
+                    authorization : `Bearer ${getTokenFromLocalStorage()}`,
+                },
+            });
+            // console.log(resp.data);
+            return resp.data;
+
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg)
+        }
+    }
 )
 
 const authSlice = createSlice({
@@ -485,6 +553,53 @@ const authSlice = createSlice({
             
             state.users = users;
         })
+        .addCase(getAllUsers.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload);
+            state.upload = false
+        })
+        .addCase(getAllConversations.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(getAllConversations.fulfilled, (state, {payload}) => {
+            state.isLoading = false;
+            // console.log(payload);
+            
+            const {conversations} = payload;
+            state.conversations = conversations;
+        })
+        .addCase(getAllConversations.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload);
+            state.upload = false
+        })
+        .addCase(getConvUser.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(getConvUser.fulfilled, (state, {payload}) => {
+            state.isLoading = false;
+            const {user} = payload;
+            state.getUser = payload;
+        } )
+        .addCase(getConvUser.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload);
+            state.upload = false
+        })
+        .addCase(getConvOfUser.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(getConvOfUser.fulfilled, (state, {payload}) => {
+            state.isLoading = false;
+            const {conversation} = payload;
+            state.conversation = conversation;
+        } )
+        .addCase(getConvOfUser.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload);
+            state.upload = false
+        })
+        
     }
 });
 
