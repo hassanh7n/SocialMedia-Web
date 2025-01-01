@@ -29,7 +29,7 @@ const initialState = {
     users : [],
     conversations : null,
     getUser : [],
-    conversation : getConversationFromLocalStorage() || null,
+    conversation :  null,
     message : {}
 };
 
@@ -273,9 +273,11 @@ export const postComments = createAsyncThunk(
 // get all users
 export const getAllUsers = createAsyncThunk(
 'users/getAllUsers',
-async(thunkAPI) => {
+async(id, thunkAPI) => {
+    console.log(id);
+    
     try {
-        const resp = await customFetch.get('/message', {
+        const resp = await customFetch.get(`/user/users/${id}`,  {
             headers : {
                 authorization : `Bearer ${getTokenFromLocalStorage()}`,
             },
@@ -370,7 +372,33 @@ export const sendMessage = createAsyncThunk(
             return thunkAPI.rejectWithValue(error.response.data.msg)
         }
     }
-)
+);
+
+
+
+// craete conversations
+export const createConversations = createAsyncThunk(
+    'conv/createConversation',
+    async(message, thunkAPI) => {
+        console.log(message);
+        
+        try {
+            const resp = await customFetch.post(`/conversation`, message, {
+                headers : {
+                    authorization : `Bearer ${getTokenFromLocalStorage()}`,
+                },
+            });
+            console.log(resp.data);
+            return resp.data;
+
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg)
+        }
+    }
+);
+
+
+
 
 const authSlice = createSlice({
     name : "auth",
@@ -613,9 +641,11 @@ const authSlice = createSlice({
         })
         .addCase(getConvOfUser.fulfilled, (state, {payload}) => {
             state.isLoading = false;
+            console.log(payload);
+            
             const {conversation} = payload;
             state.conversation = conversation;
-            addConversationoLocalStorage(state.conversation)
+            // addConversationoLocalStorage(conversation)
         } )
         .addCase(getConvOfUser.rejected, (state, {payload}) => {
             state.isLoading = false;

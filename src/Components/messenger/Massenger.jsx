@@ -12,6 +12,7 @@ import Conversations from './Conversations';
 import { IconButton, Typography, useTheme, InputBase, Button } from "@mui/material";
 import Flex from '../widget/Flex';
 import FlexBetween from '../widget/FlexBetweeen';
+import FlexBetweeen from '../widget/FlexBetweeen';
 
 
 const Massenger = () => {
@@ -27,11 +28,15 @@ const Massenger = () => {
         const primary = palette.primary.main;
   
   const alt = theme.palette.background.alt;
+  const al = theme.palette.background.default
+
+
+  console.log(id);
   
   const dispatch = useDispatch();
   
   useEffect(()=> {
-    dispatch(getAllUsers())
+    // dispatch(getAllUsers())
     dispatch(getAllConversations(user._id))
   },[])
   useEffect(() => {
@@ -41,7 +46,7 @@ const Massenger = () => {
     }
   }, [conversations])
   const me = user._id === id?.members[0] ? true : false;
-
+  const [toggle, setToggle] = useState(true);
   const {_id} = user;
   // const name = me ? id?.members[4] : id?.members[2]
   // const url = id?.members[3]
@@ -61,15 +66,17 @@ const Massenger = () => {
     }
 
   useEffect(() => {
-    dispatch(getConvOfUser({conversationId : id}))
-  }, [id, message])
+    dispatch(getConvOfUser({conversationId : id?._id}))
+  }, [id?._id, message])
 
   
     
   
   // console.log(conversations);
   
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  const isNonMobileScreens = useMediaQuery("(min-width:800px)");
+  
+  
   return (
     <Box>
       <Navbar />
@@ -80,18 +87,19 @@ const Massenger = () => {
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <div className="main-div">
-          <div className="left">
-          <Flex padding={"0.7rem"} backgroundColor={alt}  className="topbar">
-          {users.map((user) => {
+        <Flex className="main-div">
+          <Flex  backgroundColor={al}  className={toggle ? "left" : "leftOther"}>
+          <Flex  ml={"1rem"} padding={"0.7rem"} backgroundColor={alt}  className="topbar">
+            <FlexBetweeen>You can only message to your friends!. So try to make more and more friends </FlexBetweeen>
+          {/* {users.map((user) => {
           return(
-            <Users  className="topbar" key={user._id} user={user} />
+            // <Users  className="topbar" key={user._id} user={user} />
           )
 
-        })}
+        })} */}
           </Flex >
-          <div  className="conv">
-            {conversations === null ? (<Flex  padding={"1rem"} backgroundColor={alt}> <h4>please make friends to start chatting!</h4></Flex>) : (<>
+          <div onClick={() => setToggle(!isNonMobileScreens ? !toggle : true)}   className="conv">
+            {conversations === null ? (<Flex  padding={"1rem"} backgroundColor={primary}> <h4>please make friends to start chatting!</h4></Flex>) : (<>
               {conversations?.map((conversation) => {
             // console.log(conversation);
             // const {members} = conversation
@@ -108,9 +116,11 @@ const Massenger = () => {
           
 
           </div>
-          </div>
+          </Flex>
           <div border={alt} className="right">
             <Flex className='top' backgroundColor={alt} >
+              {!isNonMobileScreens && (<Button onClick={() => setToggle(!toggle)}>Back</Button>)}
+              
               <img className='msg-user-img' src={me ? id?.members[5] : id?.members[3]} alt="" />
               <p>{me ? id?.members[4] : id?.members[2]}</p>
             </Flex>
@@ -160,7 +170,7 @@ const Massenger = () => {
             
           </div>
           
-        </div>
+        </Flex>
         
       </Box>
     </Box>

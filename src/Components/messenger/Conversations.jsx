@@ -10,11 +10,11 @@ import Flex from '../widget/Flex';
 
 
 const Conversations = ({conversation}) => {
-    const {user} = useSelector((store) => store.auth);
+    const {user, mode} = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   // console.log(conversation);
   const me = user._id === conversation.members[0] ? true : false;
-  console.log(me);
+  // console.log(mode);
   
   
       const theme = useTheme();

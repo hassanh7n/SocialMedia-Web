@@ -34,8 +34,8 @@ export const getTokenFromLocalStorage = () => {
     return user
 }
 export const getConversationFromLocalStorage = () => {
-    const result = localStorage.getItem('con');
-    const user = result ? JSON.parse(result) : null;
+    const result = localStorage.getItem('conversation')
+    const user = result ? JSON.parse(result) : null
     return user
 }
 
@@ -47,7 +47,7 @@ export const getConversationFromLocalStorage = () => {
 
 
 export const addConversationoLocalStorage = (conversation) => {
-    localStorage.setItem('con', JSON.stringify(conversation));
+    localStorage.setItem('conversation', JSON.stringify(conversation));
 }
 
 export const addModeToLocalStorage = (mode) => {

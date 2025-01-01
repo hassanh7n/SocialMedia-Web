@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux';
 
 const Chat = ({conversation}) => {
     const {user, isLoading} = useSelector((store) => store.auth);
-  // console.log(conversation);
+  console.log(conversation);
   
   const {text, senderId} = conversation;
   const me = user._id === senderId ? true : false;
  
+console.log(me);
 
   return (
     <div className={me ? "me chat-main-div" : "they chat-main-div"}>

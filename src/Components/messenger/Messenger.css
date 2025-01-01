@@ -1,30 +1,28 @@
 .main-div{
-    overflow: hidden;
-    display: flex;
-    min-width: 100%;
-    height: 100%;
+    position: relative;
 
 }
 .left{
-    overflow-x: hidden;
-    width: 100%;
-    height: 80vh;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    margin-top: -1.6rem;
+    width: 93vw;
+    margin-left: -1.6rem;
+    height: 100vh;
 }
-
-.topbar{
-    display: flex;
-    gap: 2rem;
-    scrollbar-width: none;
+.leftOther{
+    position: absolute;
+    z-index: 1;
+    left: -580px;
 }
 .right{
-    margin-left: 2rem;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    height: 80vh;
-    overflow: hidden;
-    border: 1px solid;
+    position: absolute;
+    z-index: -3;
+    width: 86vw;
+    top: 0;
+    height: 85vh;
 }
 .top{
     width: 100%;
@@ -46,6 +44,78 @@
     height: 100%;
 }
 .bottom{
+    width: 90vw;
+    margin: 0 -2rem;
     align-items: end;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    left: 0;
+    position: fixed;
+    bottom: 0px;
+}
+
+@media screen and (min-width: 768px){
+    .main-div{
+        position: absolute;
+        overflow: hidden;
+        display: flex;
+        margin: 0rem ;
+        margin-left: -2.5rem;
+        width: 97%;
+        height: 90%;
+    
+    }
+    .left{
+        overflow: hidden;
+        margin-top: 0rem;
+        position: relative;
+        z-index: 0;
+        width: 60%;
+        height: 80vh;
+    }
+    
+    .topbar{
+        display: flex;
+        gap: 2rem;
+        scrollbar-width: none;
+    }
+    .right{
+        margin-left: 2rem;
+        display: flex;
+        position: relative;
+        z-index: 0;
+        flex-direction: column;
+        width: 90%;
+        height: 100%;
+        height: 85vh;
+        overflow: hidden;
+        border: 1px solid;
+    }
+    .top{
+        /* position: relative; */
+        /* margin-top: 10rem; */
+        margin: 0rem;
+        width: 100%;
+        display: flex;
+        justify-content: left;
+        padding: 1rem;
+        gap: 1rem;
+    }
+    .top p{
+        font-size: medium;
+    }
+    .msg-user-img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .conversations{
+        overflow: scroll;
+        height: 100%;
+    }
+    .bottom{
+        position: relative;
+        width: 94%;
+        align-items: end;
+        margin-bottom: 1rem;
+    }
 }

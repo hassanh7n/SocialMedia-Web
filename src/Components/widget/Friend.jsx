@@ -3,7 +3,7 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../widget/FlexBetweeen";
-import { addOrRemoveFreinds } from "../../redux-toolkit/auth";
+import { addOrRemoveFreinds, createConversations } from "../../redux-toolkit/auth";
 // import FriendImage from "../Widgets/FriendImage";
 import UserImage from "../Widgets/UserImage";
 
@@ -20,7 +20,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const primaryDark = palette.primary.dark;
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
-
+  
   const isFriend = friends.find((friend) => friend._id === friendId);
   const show = currentUser._id === user._id ? true : false;
 
@@ -28,6 +28,10 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     dispatch(addOrRemoveFreinds({
       _id : _id,
       friendId : friendId
+    }))
+    dispatch(createConversations({
+      senderId : _id,
+      recieverId : friendId
     }))
   };
 

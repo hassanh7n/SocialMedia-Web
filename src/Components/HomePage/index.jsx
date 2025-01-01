@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Box, useMediaQuery} from "@mui/material";
 import Navbar from '../Navbar';
 import UserWidget from '../Widgets/UserWidget';
 import MyPostWidget from '../Widgets/MyPostWidget';
 import PostsWidget from '../Widgets/PostsWidget';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FriendListWidget from '../Widgets/FriendListWidget';
 import AdvertWidget from '../Widgets/AdvertWidget';
+import { getAllUsers } from '../../redux-toolkit/auth';
 
 
 const HomePage = () => {
   const {user} = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+
   const {_id} = user;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   return (
