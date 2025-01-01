@@ -127,7 +127,7 @@ const PostWidget = ({
       
       {isComments && (
         <Box mt="0.5rem">
-          <FlexBetween gap="1.5rem">
+          <FlexBetween gap="1rem">
         {/* <UserImage image={user.picture} /> */}
         <InputBase
           placeholder="Leave a comment"

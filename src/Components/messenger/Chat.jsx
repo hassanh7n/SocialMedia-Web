@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const Chat = ({conversation}) => {
     const {user, isLoading} = useSelector((store) => store.auth);
-  console.log(isLoading);
+  // console.log(conversation);
   
   const {text, senderId} = conversation;
   const me = user._id === senderId ? true : false;

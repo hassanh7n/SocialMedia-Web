@@ -5,6 +5,10 @@ export const addTokenToLocalStorage = (token) => {
     localStorage.setItem('token', JSON.stringify(token));
 }
 
+// export const addConversationoLocalStorage = (conversation) => {
+//     localStorage.setItem('conversation', JSON.stringify(conversation));
+// }
+
 // export const addCartToLocalStorage = (mode) => {
 //     localStorage.setItem('cart', JSON.stringify(cart));
 // }
@@ -29,12 +33,22 @@ export const getTokenFromLocalStorage = () => {
     const user = result ? JSON.parse(result) : null;
     return user
 }
+export const getConversationFromLocalStorage = () => {
+    const result = localStorage.getItem('con');
+    const user = result ? JSON.parse(result) : null;
+    return user
+}
 
 
 
 
 
 
+
+
+export const addConversationoLocalStorage = (conversation) => {
+    localStorage.setItem('con', JSON.stringify(conversation));
+}
 
 export const addModeToLocalStorage = (mode) => {
     localStorage.setItem('mode', JSON.stringify(mode));

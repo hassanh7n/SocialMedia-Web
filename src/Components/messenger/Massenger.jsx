@@ -5,22 +5,26 @@ import Navbar from '../Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import FriendListWidget from '../Widgets/FriendListWidget';
 import AdvertWidget from '../Widgets/AdvertWidget';
-import { getAllConversations, getAllUsers, getConvOfUser, getConvUser } from '../../redux-toolkit/auth';
+import { getAllConversations, getAllUsers, getConvOfUser, getConvUser, sendMessage } from '../../redux-toolkit/auth';
 import Users from './Users';
 import Chat from './Chat';
 import Conversations from './Conversations';
-import { IconButton, Typography, useTheme } from "@mui/material";
+import { IconButton, Typography, useTheme, InputBase, Button } from "@mui/material";
 import Flex from '../widget/Flex';
+import FlexBetween from '../widget/FlexBetweeen';
 
 
 const Massenger = () => {
-  const {user, users, conversations, conversation} = useSelector((store) => store.auth);
-  console.log(conversation);
+  const {user, users, conversations, conversation, isLoading, message} = useSelector((store) => store.auth);
+  // console.log(conversation);
        const theme = useTheme();
 
 
        const [id, setId] = useState()
-         
+        const [msg, setMsg] = useState("");
+        const { palette } = useTheme();
+        const main = palette.neutral.main;
+        const primary = palette.primary.main;
   
   const alt = theme.palette.background.alt;
   
@@ -36,14 +40,32 @@ const Massenger = () => {
 
     }
   }, [conversations])
+  const me = user._id === id?.members[0] ? true : false;
+
   const {_id} = user;
-  const name = id?.members[2]
-  const url = id?.members[3]
-  console.log(name, url);
+  // const name = me ? id?.members[4] : id?.members[2]
+  // const url = id?.members[3]
+  // console.log(name, url);
+  const handlePost = () => {
+    // console.log(msg);
+    
+      // console.log(post, postsPicture);
+    
+      dispatch(sendMessage({
+        senderId : user._id,
+        conversationId : id,
+        text : msg
+      }))
+      setMsg("")
+      // dispatch(getAllPosts())
+    }
 
   useEffect(() => {
     dispatch(getConvOfUser({conversationId : id}))
-  }, [id])
+  }, [id, message])
+
+  
+    
   
   // console.log(conversations);
   
@@ -71,7 +93,7 @@ const Massenger = () => {
           <div  className="conv">
             {conversations === null ? (<Flex  padding={"1rem"} backgroundColor={alt}> <h4>please make friends to start chatting!</h4></Flex>) : (<>
               {conversations?.map((conversation) => {
-            console.log(conversation);
+            // console.log(conversation);
             // const {members} = conversation
             
             // User(conversation.members[1])
@@ -87,12 +109,12 @@ const Massenger = () => {
 
           </div>
           </div>
-          <div className="right">
+          <div border={alt} className="right">
             <Flex className='top' backgroundColor={alt} >
-              <img className='msg-user-img' src={url} alt="" />
-              <p>{name}</p>
+              <img className='msg-user-img' src={me ? id?.members[5] : id?.members[3]} alt="" />
+              <p>{me ? id?.members[4] : id?.members[2]}</p>
             </Flex>
-            <div className="conversations">  {conversation === null ? (<Flex  padding={"1rem"} backgroundColor={alt}> <h4>Nothing found</h4></Flex>) : (<>
+            <div  className="conversations">  {conversation === null ? (<Flex  padding={"1rem"} backgroundColor={alt}> <h4>Nothing found</h4></Flex>) : (<>
               {conversation?.map((conversation) => {
             console.log(conversation);
             // const {members} = conversation
@@ -100,11 +122,44 @@ const Massenger = () => {
             // User(conversation.members[1])
             // dispatch(getConvUser(conversation.members[1]))
             return(
+              <Flex className='right-conv'>
                 <Chat  key={conversation._id} conversation={conversation} />
+              </Flex>
             )
           })}
             </>)}</div>
+            <Box className="bottom" mt="0.5rem" ml={"1.5rem"} mr={"1.5rem"}>
+          <FlexBetween gap="1rem">
+        {/* <UserImage image={user.picture} /> */}
+        <InputBase
+          placeholder="lets chat..."
+          onChange={(e) => setMsg(e.target.value)}
+          value={msg}
+          sx={{
+            width: "90%",
+            backgroundColor: palette.neutral.light,
+            borderRadius: "2rem",
+            padding: "1rem 2rem",
+            height : "40px"
+          }}
+        />
+        <Button
+          disabled={isLoading}
+          onClick={handlePost}
+          sx={{
+            color: palette.background.alt,
+            backgroundColor: palette.primary.main,
+            borderRadius: "3rem",
+          }}
+        >
+          POST
+        </Button>
+      </FlexBetween>
+      
+        </Box>
+            
           </div>
+          
         </div>
         
       </Box>

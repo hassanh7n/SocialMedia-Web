@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {toast} from 'react-toastify';
 
 
-import {addUserToLocalStorage, addModeToLocalStorage, getModeFromLocalStorage,addTokenToLocalStorage,removeUserFromLocalStorage, removeTokenFromLocalStorage,getUserFromLocalStorage, getTokenFromLocalStorage} from '../utils/localStorage';
+import {addUserToLocalStorage, getConversationFromLocalStorage, addModeToLocalStorage, getModeFromLocalStorage,addTokenToLocalStorage,removeUserFromLocalStorage, removeTokenFromLocalStorage,getUserFromLocalStorage, getTokenFromLocalStorage, addConversationoLocalStorage} from '../utils/localStorage';
 import customFetch from "../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
 const disptach = useDispatch;
@@ -29,8 +29,10 @@ const initialState = {
     users : [],
     conversations : null,
     getUser : [],
-    conversation : null,
+    conversation : getConversationFromLocalStorage() || null,
+    message : {}
 };
+
 
 
 // upload user image
@@ -320,7 +322,7 @@ export const getConvOfUser = createAsyncThunk(
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
             });
-            console.log(resp.data);
+            // console.log(resp.data);
             return resp.data;
 
         } catch (error) {
@@ -337,6 +339,26 @@ export const getConvUser = createAsyncThunk(
     async(id, thunkAPI) => {
         try {
             const resp = await customFetch.get(`/user/${id}`, {
+                headers : {
+                    authorization : `Bearer ${getTokenFromLocalStorage()}`,
+                },
+            });
+            // console.log(resp.data);
+            return resp.data;
+
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg)
+        }
+    }
+)
+
+
+// send message
+export const sendMessage = createAsyncThunk(
+    'conv/sendMessage',
+    async(message, thunkAPI) => {
+        try {
+            const resp = await customFetch.post(`/message`, message, {
                 headers : {
                     authorization : `Bearer ${getTokenFromLocalStorage()}`,
                 },
@@ -593,8 +615,22 @@ const authSlice = createSlice({
             state.isLoading = false;
             const {conversation} = payload;
             state.conversation = conversation;
+            addConversationoLocalStorage(state.conversation)
         } )
         .addCase(getConvOfUser.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload);
+            state.upload = false
+        })
+        .addCase(sendMessage.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(sendMessage.fulfilled, (state, {payload}) => {
+            state.isLoading = false;
+            const {message} = payload;
+            state.message = message;
+        } )
+        .addCase(sendMessage.rejected, (state, {payload}) => {
             state.isLoading = false;
             toast.error(payload);
             state.upload = false

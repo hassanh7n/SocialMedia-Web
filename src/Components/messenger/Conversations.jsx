@@ -10,6 +10,12 @@ import Flex from '../widget/Flex';
 
 
 const Conversations = ({conversation}) => {
+    const {user} = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  // console.log(conversation);
+  const me = user._id === conversation.members[0] ? true : false;
+  console.log(me);
+  
   
       const theme = useTheme();
     const { palette } = useTheme();
@@ -20,8 +26,8 @@ const Conversations = ({conversation}) => {
     return (
         <Flex padding={"0.8rem 1rem"}   backgroundColor={alt} className='user-main-div'>
             
-            <img  className='users-img' src={conversation.members[3]} alt="" />
-            <h4  className='user-name'>{conversation.members[2]}</h4>
+            <img  className='users-img' src={me ? conversation.members[5] : conversation.members[3]} alt="" />
+            <h4  className='user-name'>{me ? conversation.members[4] : conversation.members[2]}</h4>
         {/* {conversation?.map((user) => {
         // const {picture, firstName} = user;
         console.log(user);
