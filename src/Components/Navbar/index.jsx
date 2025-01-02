@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box, 
   useMediaQuery,
@@ -9,6 +9,7 @@ import {
   MenuItem,
   FormControl,
   useTheme,
+  Divider
 } from '@mui/material';
 import {
   Search,
@@ -21,16 +22,18 @@ import {
   Close
 } from '@mui/icons-material'
 import {  useDispatch, useSelector  } from 'react-redux';
-import {logoutUser, setMode} from '../../redux-toolkit/auth'
-import {Link, useNavigate} from 'react-router-dom';
+import {getAllUsers, logoutUser, setMode} from '../../redux-toolkit/auth'
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import FlexBetweeen from '../widget/FlexBetweeen';
-
+import Flex from '../widget/Flex';
+import '../HomePage/Users.css'
 
 const Index = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [serach, setSearch] = useState("")
   const [isMobileMenuToggled, setIsMobileViewToggled] = useState(false);
-  const {user} = useSelector((state) => state.auth);
+  const {user, allusers} = useSelector((state) => state.auth);
   // console.log(user);
   const theme = useTheme();
   const isNonMobileScreenView = useMediaQuery("(min-width: 1000px)");
@@ -38,20 +41,49 @@ const Index = () => {
   const dark = theme.palette.neutral.dark;
   // const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
-  const alt = theme.palette.background.alt;
+  // const alt = theme.palette.background.alt;
   const Name =  `${user.firstName} ${user.lastName}`;
+  const [is, setIs] = useState(false)
+  
+  const alt = theme.palette.background.alt;
+  const al = theme.palette.background.default
+  useEffect(() => {
+    const {name} = serach;
+    // console.log(name);
+    
+ dispatch(getAllUsers(serach))
 
-
-
+  }, [serach])
 
 
 
   return (
-    <FlexBetweeen padding="1rem 6%" backgroundColor={alt}>
-      <FlexBetweeen gap="1.75rem">
+    <FlexBetweeen
+    padding="1rem 6%" backgroundColor={alt}>
+      <FlexBetweeen
+      
+      gap="1.75rem">
+
+        {isNonMobileScreenView && (
+          <Typography
+          fontWeight="bold"
+          fontSize="clamp(1rem, 2rem, 2.25rem)"
+          color="primary"
+          onClick={() => navigate("/")}
+          sx={{
+            "&:hover" : {
+              color : primaryLight,
+              cursor : 'pointer',
+            },
+          }}
+          >
+            FreeVoice
+          </Typography>
+        )}
+        {!isNonMobileScreenView && (
         <Typography
         fontWeight="bold"
-        fontSize="clamp(1rem, 2rem, 2.25rem)"
+        fontSize="1.5rem"
         color="primary"
         onClick={() => navigate("/")}
         sx={{
@@ -63,20 +95,56 @@ const Index = () => {
         >
           FreeVoice
         </Typography>
+        )}
+        
 
-        {isNonMobileScreenView && (
-          <FlexBetweeen
+          <Flex
           backgroundColor={neutralLight}
           borderRadius="9px"
-          gap="3rem"
-          padding="0.1rem 1.5rem"
+          gap="0rem"
+          padding="0rem 0rem"
           >
-            <InputBase placeholder="Search..." />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetweeen>
-        )}
+            <InputBase
+            className='input'
+            onClick={() => setIs(!is)}
+            placeholder="Search..." 
+            onChange={(e) => setSearch(e.target.value)}
+          value={serach}
+          sx={{
+            width: "90%",
+            // backgroundColor: palette.neutral.light,
+            borderRadius: "2rem",
+            padding: "1rem 2rem",
+            height : "40px"
+          }}/>
+          </Flex>
+          {is && (
+
+<Flex  className='widget' backgroundColor={al}>
+{allusers && (
+  <Flex  className='user-widget'>
+  {allusers.map((user) => {
+    const {_id, firstName, picture} = user;
+    return(
+      <a href={`${_id}`}>
+
+      <Flex onClick={() => setIs(!is)} backgroundColor={alt} className='box'>
+        
+      <img  className='user-img' src={picture} alt="" />
+      <h4>{firstName}</h4>
+      <Divider />
+      </Flex>
+      </a>
+      
+    )
+  })}
+  </Flex>
+)}
+
+</Flex>
+) }
+
+        
 
 
 
@@ -89,7 +157,10 @@ const Index = () => {
 
       {/* Desktop Nav */}
       {isNonMobileScreenView ? (
-        <FlexBetweeen gap="2rem">
+        <FlexBetweeen 
+    onClick={() => setIs(false)}
+        
+        gap="2rem">
 
           {/* nightmode or lightmode button */}
           <IconButton onClick={() => dispatch(setMode())}>

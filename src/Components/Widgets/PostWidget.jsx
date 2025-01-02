@@ -40,26 +40,39 @@ const PostWidget = ({
   const {user, isLoading,commentss, upload} = useSelector((store) => store.auth);
 
   // const commentcount = comments.length
-  console.log(commentss);
+  // console.log(commentss);
   const [post, setPost] = useState("");
-  const [like, setLike] = useState(false);
+  let [like, setLike] = useState(false);
 
-  // const isLiked = Boolean(likes[user._id]);
-  const likeCount = like ? Object.keys(likes).length + 1 : Object.keys(likes).length;
+  let isLiked = Boolean(likes[user._id]);
+  // like = isLiked
+  const likeCount = like  ? Object.keys(likes).length + 1 : Object.keys(likes).length;
   const {_id} = user;
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
-  // console.log(post);
-  
+  console.log(isLiked);
+  // if(isLiked){
+  //   setLike(true)
+  // }else{
+  //   setLike(false)
+  // }
+
+
+  // if(isLiked){
+  //   return setLike(true)
+  // }
   const patchLike = () => {
-    setLike(!like)
-    
-    dispatch(likeOrUnlikePost( {
-      postId : postId,
-      userId : _id
+    // isLiked = false
+    // isLiked = !isLiked
+   setLike(!like)
+   
+   dispatch(likeOrUnlikePost( {
+     postId : postId,
+     userId : _id
     }
-    ))
+  ))
+  dispatch(getAllPosts())
   }
   const handlePost = () => {
   console.log(post);
@@ -103,7 +116,7 @@ const PostWidget = ({
             <IconButton 
             onClick={patchLike}
             >
-              {like ? (
+              {like ?  (
                 <FavoriteOutlined sx={{ color: primary }} />
               ) : (
                 <FavoriteBorderOutlined />

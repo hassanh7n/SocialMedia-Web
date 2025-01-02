@@ -30,7 +30,8 @@ const initialState = {
     conversations : null,
     getUser : [],
     conversation :  null,
-    message : {}
+    message : {},
+    allusers : []
 };
 
 
@@ -273,15 +274,24 @@ export const postComments = createAsyncThunk(
 // get all users
 export const getAllUsers = createAsyncThunk(
 'users/getAllUsers',
-async(id, thunkAPI) => {
-    console.log(id);
+async(name, thunkAPI) => {
+    
+    //   console.log(name);
+      
+      let url = `/user`;
+      if (name) {
+        url = url + `?name=${name}`;
+      }
+
     
     try {
-        const resp = await customFetch.get(`/user/users/${id}`,  {
+        const resp = await customFetch.get(url, {
             headers : {
                 authorization : `Bearer ${getTokenFromLocalStorage()}`,
             },
         })
+        console.log(resp.data);
+        
         return resp.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data.msg)
@@ -400,6 +410,8 @@ export const createConversations = createAsyncThunk(
 
 
 
+
+
 const authSlice = createSlice({
     name : "auth",
     initialState,
@@ -500,7 +512,7 @@ const authSlice = createSlice({
         })
         .addCase(getAllPosts.fulfilled, (state, {payload}) => {
             state.isLoading = false;
-            console.log(payload);
+            // console.log(payload);
             
             const {posts} = payload;
             state.posts = posts;
@@ -527,6 +539,8 @@ const authSlice = createSlice({
         .addCase(addOrRemoveFreinds.fulfilled, (state, {payload}) => {
             state.isLoading = false;
             const {formattedFriends} = payload;
+            console.log(payload);
+            
             state.friends = formattedFriends;
         })
         .addCase(addOrRemoveFreinds.rejected, (state, {payload}) => {
@@ -598,14 +612,13 @@ const authSlice = createSlice({
         })
         .addCase(getAllUsers.fulfilled, (state, {payload}) => {
             state.isLoading = false;
-            const {users} = payload;
-            console.log(users);
-            
-            state.users = users;
+            const {user} = payload;
+            console.log(user);
+            state.allusers = user;
         })
         .addCase(getAllUsers.rejected, (state, {payload}) => {
             state.isLoading = false;
-            toast.error(payload);
+            // toast.error(payload);
             state.upload = false
         })
         .addCase(getAllConversations.pending, (state) => {
@@ -641,7 +654,7 @@ const authSlice = createSlice({
         })
         .addCase(getConvOfUser.fulfilled, (state, {payload}) => {
             state.isLoading = false;
-            console.log(payload);
+            // console.log(payload);
             
             const {conversation} = payload;
             state.conversation = conversation;

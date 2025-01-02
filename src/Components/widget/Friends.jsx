@@ -8,7 +8,7 @@ import { addOrRemoveFreinds } from "../../redux-toolkit/auth";
 import UserImage from "../Widgets/UserImage";
 
 const Friends = ({ friendId, name, subtitle, picture }) => {
-  console.log(picture, name);
+  // console.log(picture, name);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, currentUser, isLoading } = useSelector((store) => store.auth);

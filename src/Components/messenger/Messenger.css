@@ -41,6 +41,7 @@
 }
 .conversations{
     overflow: scroll;
+    margin-bottom: 2.2rem;
     height: 100%;
 }
 .bottom{
@@ -111,9 +112,12 @@
     .conversations{
         overflow: scroll;
         height: 100%;
+        margin-bottom: 1rem;
+        scrollbar-width: none;
     }
     .bottom{
         position: relative;
+        left: 0rem;
         width: 94%;
         align-items: end;
         margin-bottom: 1rem;

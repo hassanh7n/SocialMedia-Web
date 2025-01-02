@@ -26,8 +26,8 @@ const Conversations = ({conversation}) => {
     return (
         <Flex padding={"0.8rem 1rem"}   backgroundColor={alt} className='user-main-div'>
             
-            <img  className='users-img' src={me ? conversation.members[5] : conversation.members[3]} alt="" />
-            <h4  className='user-name'>{me ? conversation.members[4] : conversation.members[2]}</h4>
+            <img  className='users-img' src={me ? conversation.receiverPicture : conversation.senderPicture} alt="" />
+            <h4  className='user-name'>{me ? conversation.receiverName : conversation.senderName}</h4>
         {/* {conversation?.map((user) => {
         // const {picture, firstName} = user;
         console.log(user);

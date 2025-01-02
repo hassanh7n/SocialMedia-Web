@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import {Box, useMediaQuery} from "@mui/material";
+import React, { useEffect, useState } from 'react'
+import {Box, useMediaQuery, Divider} from "@mui/material";
 import Navbar from '../Navbar';
 import UserWidget from '../Widgets/UserWidget';
 import MyPostWidget from '../Widgets/MyPostWidget';
@@ -8,17 +8,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import FriendListWidget from '../Widgets/FriendListWidget';
 import AdvertWidget from '../Widgets/AdvertWidget';
 import { getAllUsers } from '../../redux-toolkit/auth';
+import Users from './Users';
+import Flex from '../widget/Flex';
 
+import "./Users.css"
+import { useTheme } from '@emotion/react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
-  const {user} = useSelector((store) => store.auth);
+  const {user, allusers} = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+         const theme = useTheme();
+
+  
+  
 
   const {_id} = user;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   return (
-    <Box>
-      <Navbar />
+    <Box >
+      <Navbar  />
       <Box
         width="100%"
         padding="2rem 6%"
